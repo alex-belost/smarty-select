@@ -2,7 +2,10 @@
   "name": "smarty-select",
   "version": "0.0.1",
   "description": "es6 module, replace default html select to custom select",
-  "main": "webpack.config.js",
+  "main": "src/js/modules/smarty-select.js",
+  "bugs": {
+    "email": "alex.belost@gmail.com"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack-dev-server --hot --inline"
