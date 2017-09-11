@@ -6,7 +6,7 @@ Demo: https://codepen.io/Alebex/pen/rmWQyg
 ## Usage
 
 ```console
-    npm install --save smarty-tabs
+    npm install --save smarty-select
 ``` 
 
 #### HTML Layout
