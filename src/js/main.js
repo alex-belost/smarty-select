@@ -1,7 +1,9 @@
 import '../stylesheet/style.scss';
 import SmartySelect from './modules/smarty-select';
 
-const test = SmartySelect('[data-js="smarty-select"]', {
+const container = document.querySelector('[data-js="smarty-select"]');
+
+const test = SmartySelect(container, {
   classes: {
     container: 'test-container',
     button: 'test-button',

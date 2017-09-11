@@ -129,8 +129,10 @@ class SmartySelect {
     const userConfig = this.userConfig;
     const configSelect = this.configSelect;
 
-    configSelect.mainParent = SmartySelect.el(this.initSelector);
-    configSelect.mainSelect = SmartySelect.el(`${this.initSelector} > select`);
+    configSelect.mainParent = (typeof this.initSelector === 'object')
+        ? this.initSelector
+        : SmartySelect.el(this.initSelector);
+    configSelect.mainSelect = configSelect.mainParent.querySelector('select');
     configSelect.mainOptions = configSelect.mainSelect.options;
 
     const startIndex = configSelect.mainOptions.selectedIndex;
