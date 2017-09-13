@@ -29,6 +29,7 @@
         white-space: nowrap;
         border: 1px solid lightblue;
         background-color: #fff;
+        box-sizing: border-box;
         
         &:focus { outline: 0; }
         
