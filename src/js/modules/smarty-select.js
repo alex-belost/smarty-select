@@ -4,20 +4,6 @@ class SmartySelect {
     self.initSelector = initSelector;
     self.userConfig = config || {};
 
-    self.configSelect = {
-      initialState: false,
-      currentState: false,
-      createdSelect: undefined,
-      events: {},
-      set state(state) {
-        this.currentState = state;
-        self._updateState();
-      },
-      get state() {
-        return this.currentState;
-      },
-    };
-
     this.init();
   }
 
@@ -49,9 +35,9 @@ class SmartySelect {
       dropdown: `${blockName}__dropdown`,
       dropdownMenu: `${blockName}__dropdown-menu`,
       option: `${blockName}__option`,
-      multiOption: `${blockName}__multi-item`,
-      multiRemove: `${blockName}__multi-remove`,
-      multiValue: `${blockName}__multi-value`,
+      selectedItem: `${blockName}__selected-item`,
+      selectedButton: `${blockName}__selected-button`,
+      selectedValue: `${blockName}__selected--value`,
     };
 
     return {
@@ -94,6 +80,18 @@ class SmartySelect {
     }
 
     return element;
+  }
+
+  _createSelectedItem(value) {
+    const self = this;
+    const defaultParameters = SmartySelect.defaultParameters();
+    const {defaultClass} = defaultParameters;
+
+    const container = self._createElement('div', {
+      classes: [
+        defaultClass.selectedItem,
+      ]
+    })
   }
 
   _createSelect() {
@@ -201,38 +199,6 @@ class SmartySelect {
     configSelect.button.addEventListener('click', self._buttonAction());
   }
 
-  _createMultiOption(html) {
-    const self = this;
-    const { defaultClass } = SmartySelect.defaultParameters();
-    const userConfig = self.userConfig;
-
-    const container = self._createElement('div', {
-      classes: [
-        defaultClass.multiOption,
-        userConfig.multiOption,
-      ],
-    });
-
-    const value = self._createElement('div', {
-      classes: [
-        defaultClass.multiValue,
-        userConfig.multiValue,
-      ],
-      html,
-      appendTo: container,
-    });
-
-    const closeButton = self._createElement('div', {
-      classes: [
-        defaultClass.multiRemove,
-        userConfig.multiRemove,
-      ],
-      appendTo: container,
-    });
-
-    return container;
-  }
-
   _updateState() {
     const configSelect = this.configSelect;
 
@@ -251,12 +217,34 @@ class SmartySelect {
     const options = configSelect.options;
     const activeOptionIndex = options.indexOf(optionEvent);
     const activeOption = options[activeOptionIndex];
+    const isMultiple = configSelect.mainSelect.multiple;
 
-    SmartySelect.each(options, (option) => {
-      option.classList.remove('active');
-    });
+    if (!isMultiple) {
+      SmartySelect.each(options, (option) => {
+        option.classList.remove('active');
+      });
+    }
 
-    activeOption.classList.add('active');
+    activeOption.classList.toggle('active');
+  }
+
+  _setMultipleValue(value, index, isSelected) {
+    const self = this;
+    const configSelect = self.configSelect;
+    const userConfig = self.userConfig;
+    const defaultParameters = SmartySelect.defaultParameters();
+
+    const placeholder = userConfig.placeholder || defaultParameters.placeholder;
+    const isEmpty = configSelect.selectedState.keys().length < 0;
+
+    if (isEmpty) {
+      configSelect.button.innerHTML = placeholder;
+    } else {
+
+    }
+
+    console.log(configSelect.selectedState);
+
   }
 
   _buttonAction() {
@@ -276,30 +264,17 @@ class SmartySelect {
     const self = this;
     const configSelect = self.configSelect;
     const eventsList = self.configSelect.events;
+    const isMultiple = self.configSelect.mainSelect.multiple;
 
     const customChange = new CustomEvent('custom.change', {
       bubbles: true,
       cancelable: true,
     });
 
-    function addMultipleOption(value, state) {
-      // configSelect.multiSelectedOption = configSelect.multiSelectedOption
-      //     ? configSelect.multiSelectedOption : [];
-      //
-      // configSelect.multiSelectedOption.push(self._createMultiOption(value));
-      //
-      // if (state) {
-      //   configSelect.button.appendChild(multiOption);
-      // } else {
-      //   configSelect.button.removeChild(multiOption);
-      // }
-    }
-
     function optionEvent(event) {
       const option = event.currentTarget;
       const value = option.getAttribute('data-value');
       const index = +option.getAttribute('data-index');
-      const isMultiple = self.configSelect.mainSelect.multiple;
 
       if (configSelect.state) {
         self._setActiveOption(option);
@@ -311,7 +286,7 @@ class SmartySelect {
           const mainOption = configSelect.mainOptions[index];
 
           mainOption.selected = !mainOption.selected;
-          addMultipleOption(value, mainOption.selected);
+          self._setMultipleValue(value, index, mainOption.selected);
         }
       }
 
@@ -368,10 +343,36 @@ class SmartySelect {
   }
 
   init() {
-    const configSelect = this.configSelect;
+    const self = this;
 
-    if (!configSelect.initialState) {
-      configSelect.initialState = true;
+    self.configSelect = {
+      initialState: false,
+      currentState: false,
+      events: {},
+
+      set state(state) {
+        this.currentState = state;
+        self._updateState();
+      },
+      get state() {
+        return this.currentState;
+      },
+
+      set selectedState(selectedOption) {
+        if (this.selectedOptions) {
+          this.selectedOptions = {};
+        }
+
+        this.selectedOptions[selectedOption.index] = selectedOption.value;
+      },
+      get selectedState() {
+        return this.selectedOptions || {};
+      }
+    };
+
+    if (!self.configSelect.initialState) {
+      self.configSelect.initialState = true;
+
       this._createSelect();
       this._outsideAction();
     }
