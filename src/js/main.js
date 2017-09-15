@@ -2,9 +2,9 @@ import '../stylesheet/style.scss';
 import SmartySelect from './modules/smarty-select';
 import './modules/test-multiple-select';
 
-const container = document.querySelector('[data-js="smarty-select"]');
+// const container = document.querySelector();
 
-const test = SmartySelect(container, {
+const test = SmartySelect('[data-js="smarty-select"]', {
   classes: {
     container: 'test-container',
     button: 'test-button',
@@ -14,12 +14,12 @@ const test = SmartySelect(container, {
   },
 
   optionHTML(value, index) {
-    return `test - ${value} - ${index}`;
+    return `customHTML-${index}: ${value}`;
   },
 });
 
 test.change((option) => {
-  console.log(option.innerHTML);
+  // console.log(option);
 });
 
 const destroyBtn = document.querySelector('.destroy');

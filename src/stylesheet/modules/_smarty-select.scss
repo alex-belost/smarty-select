@@ -88,4 +88,16 @@
             background-color: lightblue;
         }
     }
+    
+    &__selected-item {
+        display: inline-flex;
+        align-items: center;
+        padding: 2px;
+        font-size: 1em;
+        line-height: 1;
+        margin-right: 4px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        background-color: #f2f2f2;
+    }
 }
