@@ -20,13 +20,17 @@ class SmartySelect {
       },
 
       set selectedState(selectedOption) {
-        const [index, value] = selectedOption;
+        if (selectedOption) {
+          const [index, value] = selectedOption;
 
-        if (!this.selectedOptions) {
-          this.selectedOptions = {};
+          if (!this.selectedOptions) {
+            this.selectedOptions = {};
+          }
+
+          self._updateSelectedItem(index, value, this);
+        } else {
+          self._removeSelectedItem(this.selectedOptions);
         }
-
-        self._updateSelectedItem(index, value, this);
       },
       get selectedState() {
         return this.selectedOptions
@@ -259,6 +263,18 @@ class SmartySelect {
     }
   }
 
+  _removeSelectedItem(obj) {
+    const self = this;
+    const { configSelect } = self;
+
+    _.forIn(obj, (value) => {
+      value.removeEventListener('click', self._closeSelectedAction());
+      configSelect.button.removeChild(value);
+    });
+
+    configSelect.button.appendChild(configSelect.placeholder);
+  }
+
   _updateState() {
     const { configSelect } = this;
 
@@ -362,11 +378,11 @@ class SmartySelect {
     function closeSelectedEvent(event) {
       const option = event.currentTarget;
 
-      _.forIn(configSelect.selectedOptions, (value, index) => {
+      _.forIn(configSelect.selectedOptions, (value, key) => {
         if (option === value) {
-          configSelect.mainOptions[index].selected = false;
-          configSelect.options[index].classList.remove('active');
-          configSelect.selectedState = [index, value];
+          configSelect.mainOptions[key].selected = false;
+          configSelect.options[key].classList.remove('active');
+          configSelect.selectedState = [key, value];
         }
       });
     }
@@ -441,6 +457,7 @@ class SmartySelect {
       configSelect.createdSelect = configSelect.mainParent.removeChild(configSelect.createdSelect);
 
       configSelect.initialState = false;
+      configSelect.selectedState = false;
     }
   }
 

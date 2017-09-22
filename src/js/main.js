@@ -1,6 +1,5 @@
 import '../stylesheet/style.scss';
 import SmartySelect from './modules/smarty-select';
-import './modules/test-multiple-select';
 
 // const container = document.querySelector();
 
