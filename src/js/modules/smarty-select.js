@@ -246,9 +246,7 @@ class SmartySelect {
       configSelect.button.removeChild(item);
       delete context.selectedOptions[index];
     } else {
-      const keys = Object.keys(context.selectedOptions);
-
-      if (!keys.length) {
+      if (_.isEmpty(context.selectedOptions)) {
         configSelect.button.innerHTML = '';
       }
 
@@ -285,9 +283,9 @@ class SmartySelect {
 
   _buttonAction() {
     const self = this;
-    const {configSelect} = self;
+    const { configSelect } = self;
 
-    function buttonEvent(event) {
+    function buttonEvent() {
       self.configSelect.state = !self.configSelect.state;
     }
 
