@@ -1,6 +1,6 @@
 {
   "name": "smarty-select",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "es6 module, replace default html select to custom select",
   "main": "src/js/modules/smarty-select.js",
   "bugs": {
