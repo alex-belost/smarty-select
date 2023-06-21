@@ -1,65 +1,54 @@
-const webpack = require('webpack');
-const resolve = require('path').resolve;
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+// Generated using webpack-cli https://github.com/webpack/webpack-cli
 
-module.exports = {
-  entry: resolve(__dirname, 'src/js/main'),
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
+const isProduction = process.env.NODE_ENV == "production";
+
+const config = {
+  entry: "./src/index.ts",
   output: {
-    filename: '[name].js',
-    path: resolve(__dirname, 'dist'),
-    publicPath: '/',
+    path: path.resolve(__dirname, "dist"),
   },
+  devServer: {
+    open: true,
+    host: "localhost",
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "index.html",
+    }),
 
+    new MiniCssExtractPlugin(),
+  ],
   module: {
     rules: [
       {
-        test: /\.js$/,
-        include: resolve(__dirname, 'src/js'),
-        use: [
-          {
-            loader: 'babel-loader',
-            options: {
-              presets: [
-                'es2015',
-                'env',
-              ],
-              plugins: ['transform-runtime'],
-            },
-          },
-        ],
+        test: /\.(ts|tsx)$/i,
+        loader: "ts-loader",
+        exclude: ["/node_modules/"],
       },
       {
-        test: /\.scss$/,
-        include: resolve(__dirname, 'src/stylesheet'),
-        use: [
-          'style-loader',
-          'css-loader',
-          {
-            loader: 'postcss-loader',
-            options: {
-              plugins: function () {
-                return [
-                  require('autoprefixer')(),
-                ];
-              },
-            },
-          },
-          'sass-loader',
-        ],
+        test: /\.s[ac]ss$/i,
+        use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+      },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
+        type: "asset",
       },
     ],
   },
-
-  plugins: [
-    new HtmlWebpackPlugin({
-      cache: true,
-      inject: 'body',
-      template: 'index.html'
-    }),
-  ],
-
-  devServer: {
-    port: 8000,
+  resolve: {
+    extensions: [".tsx", ".ts", ".jsx", ".js", "..."],
   },
+};
+
+module.exports = () => {
+  if (isProduction) {
+    config.mode = "production";
+  } else {
+    config.mode = "development";
+  }
+  return config;
 };
