@@ -1,43 +1,33 @@
 {
   "name": "smarty-select",
-  "version": "0.1.1",
-  "description": "es6 module, replace default html select to custom select",
-  "main": "src/js/modules/smarty-select.js",
-  "bugs": {
-    "email": "alex.belost@gmail.com"
-  },
+  "version": "1.0.0",
+  "description": "My webpack project",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --hot --inline"
+    "serve": "webpack serve",
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "release": "pnpm run build && changeset publish",
+    "lint": "tsc"
   },
-  "keywords": [
-    "customSelect",
-    "select",
-    "smarty",
-    "smarty-select",
-    "html-select",
-    "Alebex"
-  ],
-  "author": "Alebex",
-  "license": "ISC",
+  "author": "",
+  "license": "MIT",
   "devDependencies": {
-    "autoprefixer": "^7.1.4",
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.6.0",
-    "babel-preset-es2015": "^6.24.1",
-    "css-loader": "^0.28.7",
-    "html-webpack-plugin": "^2.30.1",
-    "node-sass": "^4.5.3",
-    "path": "^0.12.7",
-    "postcss-loader": "^2.0.6",
-    "sass-loader": "^6.0.6",
-    "style-loader": "^0.18.2",
-    "webpack": "^3.5.6",
-    "webpack-dev-server": "^2.7.1"
-  },
-  "dependencies": {
-    "lodash": "^4.17.4"
+    "@changesets/cli": "^2.26.1",
+    "@webpack-cli/generators": "^3.0.7",
+    "css-loader": "^6.8.1",
+    "html-webpack-plugin": "^5.5.3",
+    "mini-css-extract-plugin": "^2.7.6",
+    "prettier": "^2.8.8",
+    "sass": "^1.63.4",
+    "sass-loader": "^13.3.2",
+    "style-loader": "^3.3.3",
+    "ts-loader": "^9.4.3",
+    "tsup": "^7.0.0",
+    "typescript": "^5.1.3",
+    "webpack": "^5.87.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
   }
 }

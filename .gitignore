@@ -3,5 +3,4 @@
 node_modules
 
 # ignore folders
-dist
 npm-debug.log
