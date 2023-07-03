@@ -1,0 +1,66 @@
+@use "sass:selector";
+
+.smarty-select {
+  $self: &;
+  $is-expanded: selector.append($self, '[aria-expanded="true"]');
+  $is-collapsed: selector.append($self, '[aria-expanded="false"]');
+  $select-size: 36px;
+
+  display: flex;
+
+  &__button {
+    position: relative;
+    display: grid;
+    align-items: center;
+    text-align: start;
+    width: min(100%, 200px);
+    height: var(--select-height, #{$select-size});
+    background-color: #fff;
+    padding-left: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "first last";
+    gap: 3px;
+
+    transition: all 300ms;
+
+    &::before {
+      content: attr(aria-placeholder);
+      color: #ccc;
+      pointer-events: none;
+      grid-area: first;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    #{$is-expanded} & {
+      border-color: lightblue;
+    }
+  }
+
+  &__values {
+    display: block;
+    flex-grow: 1;
+    height: 100%;
+    grid-area: first;
+  }
+
+  &__arrow {
+    height: var(--select-height, #{$select-size});
+    width: var(--select-height, #{$select-size});
+    aspect-ratio: 1;
+    grid-area: last;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 300ms;
+    transform: perspective(500px) rotate(90deg);
+
+    #{$is-expanded} & {
+      transform: perspective(500px) rotate(90deg) scaleX(-1);
+    }
+  }
+}

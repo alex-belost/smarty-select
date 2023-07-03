@@ -6,26 +6,26 @@
     <title>Smarty Select</title>
   </head>
   <body>
-    <div class="beauty-container">
-      <!-- base structure for custom select -->
-      <div class="container" data-js="smarty-select">
-        <select name="" id="" multiple hidden>
-          <option value="1sdf">test_001</option>
-          <option value="2xcv">test_002</option>
-          <option value="3xcv">test_003</option>
-          <option value="3xcv">test_004</option>
-          <option value="3xcv">test_005</option>
-          <option value="3xcv">test_006</option>
-          <option value="3xcv">test_007</option>
-          <option value="3xcv">test_008</option>
-          <option value="3xcv">test_009</option>
-          <option value="3xcv">test_010</option>
-        </select>
-      </div>
-      <!-- end base -->
-
-      <button class="init">init</button>
-      <button class="destroy">destroy</button>
+    <!-- base structure for custom select -->
+    <div class="container">
+      <select id="select" name="custom-name">
+        <option value="1sdf">test_001</option>
+        <option value="2xcv" label="test"></option>
+        <option value="3xcv">test_003</option>
+        <option value="3xcv">test_004</option>
+        <option value="3xcv">test_005</option>
+        <option value="3xcv">test_006</option>
+        <option value="3xcv">test_007</option>
+        <option value="3xcv">test_008</option>
+        <option value="3xcv">test_009</option>
+        <option value="3xcv">test_010</option>
+      </select>
     </div>
+    <!-- end base -->
+
+    <div id="container">test</div>
+
+    <button class="init">init</button>
+    <button class="destroy">destroy</button>
   </body>
 </html>

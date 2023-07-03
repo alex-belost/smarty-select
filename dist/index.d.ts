@@ -1,2 +1,4 @@
+declare const MULTIPLIER = 100;
+declare const TEST_VALUE = "test value";
 
-export { }
+export { MULTIPLIER, TEST_VALUE };

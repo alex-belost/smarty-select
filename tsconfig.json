@@ -4,7 +4,7 @@
     "experimentalDecorators": true /* Enable experimental support for legacy experimental decorators. */,
     "emitDecoratorMetadata": true /* Emit design-type metadata for decorated declarations in source files. */,
     "module": "commonjs" /* Specify what module code is generated. */,
-    "noEmit": true /* Disable emitting files from a compilation. */,
+    // "noEmit": true /* Disable emitting files from a compilation. */,
     "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,
     "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
     "strict": true /* Enable all strict type-checking options. */,

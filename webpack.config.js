@@ -7,9 +7,10 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const isProduction = process.env.NODE_ENV == "production";
 
 const config = {
-  entry: "./src/index.ts",
+  entry: [ "./src/index.ts", "./src/stylesheet/style.scss" ],
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "distDemo"),
+    filename: "bundle.js",
   },
   devServer: {
     open: true,
@@ -18,6 +19,7 @@ const config = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "index.html",
+      inject: 'body',
     }),
 
     new MiniCssExtractPlugin(),

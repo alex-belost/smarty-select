@@ -1,109 +1,113 @@
 .smarty-select {
-    $this: smarty-select;
+  $this: smarty-select;
+  position: relative;
+  width: 100%;
+
+  &[data-state="open"] {
+    .#{$this}__button {
+      &::after {
+        transform: rotate(-135deg);
+      }
+    }
+
+    .#{$this}__dropdown {
+      visibility: visible;
+      transition-delay: 0s;
+    }
+
+    .#{$this}__dropdown-menu {
+      transform: translate(0);
+    }
+  }
+
+  &__button {
     position: relative;
+    display: block;
     width: 100%;
-    
-    &[data-state=open] {
-        .#{$this}__button {
-            &::after {
-                transform: rotate(-135deg);
-            }
-        }
-        
-        .#{$this}__dropdown {
-            visibility: visible;
-            transition-delay: 0s;
-        }
-        
-        .#{$this}__dropdown-menu { transform: translate(0); }
+    padding: 10px 30px 10px 5px;
+    text-align: left;
+    border: 1px solid lightblue;
+    background-color: #fff;
+    box-sizing: border-box;
+
+    &:focus {
+      outline: 0;
     }
-    
-    &__button {
-        position: relative;
-        display: block;
-        width: 100%;
-        padding: 10px 30px 10px 5px;
-        text-align: left;
-        border: 1px solid lightblue;
-        background-color: #fff;
-        box-sizing: border-box;
-        
-        &:focus { outline: 0; }
-        
-        &::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            right: 10px;
-            width: 5px;
-            height: 5px;
-            border-style: solid;
-            border-color: #000;
-            border-width: 0 2px 2px 0;
-            transform: translate(0, -50%) rotate(45deg);
-            transition: transform .3s;
-            will-change: transform;
-        }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      width: 5px;
+      height: 5px;
+      border-style: solid;
+      border-color: #000;
+      border-width: 0 2px 2px 0;
+      transform: translate(0, -50%) rotate(45deg);
+      transition: transform 0.3s;
+      will-change: transform;
     }
-    
-    &__placeholder {
-        color: #7c7c7c;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+  }
+
+  &__placeholder {
+    color: #7c7c7c;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    visibility: hidden;
+    transition: visibility 0s;
+    transition-delay: 0.3s;
+  }
+
+  &__dropdown-menu {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    max-height: 200px;
+    overflow: auto;
+    border-color: lightblue;
+    border-style: solid;
+    border-width: 0 1px 1px 1px;
+    background-color: #fff;
+    transform: translate(0, -100%);
+    transition: transform 0.3s;
+    will-change: transform;
+  }
+
+  &__option {
+    display: block;
+    padding: 10px 30px 10px 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: lighten(lightblue, 10%);
     }
-    
-    &__dropdown {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        overflow: hidden;
-        visibility: hidden;
-        transition: visibility 0s;
-        transition-delay: .3s;
+
+    &[aria-selected="true"] {
+      background-color: lightblue;
     }
-    
-    &__dropdown-menu {
-        position: relative;
-        margin: 0;
-        padding: 0;
-        list-style-type: none;
-        max-height: 200px;
-        overflow: auto;
-        border-color: lightblue;
-        border-style: solid;
-        border-width: 0 1px 1px 1px;
-        background-color: #fff;
-        transform: translate(0, -100%);
-        transition: transform .3s;
-        will-change: transform;
-    }
-    
-    &__option {
-        display: block;
-        padding: 10px 30px 10px 5px;
-        cursor: pointer;
-        transition: background-color .3s;
-        
-        &:hover {
-            background-color: lighten(lightblue, 10%);
-        }
-        
-        &.active {
-            background-color: lightblue;
-        }
-    }
-    
-    &__selected-item {
-        display: inline-block;
-        padding: 2px;
-        font-size: 1em;
-        line-height: 1;
-        margin: 4px 4px;
-        border: 1px solid #ccc;
-        border-radius: 3px;
-        background-color: #f2f2f2;
-        cursor: pointer;
-    }
+  }
+
+  &__selected-item {
+    display: inline-block;
+    padding: 2px;
+    font-size: 1em;
+    line-height: 1;
+    margin: 4px 4px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    cursor: pointer;
+  }
 }
